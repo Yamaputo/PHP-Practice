@@ -1,0 +1,62 @@
+<?php
+$n=5;
+$h=3; 
+$w=3;
+$y=2; 
+$x=2;
+$a="RULDL";
+$b=array();
+for($i=1;$i<=$h;$i++){
+  for($j=1;$j<=$w;$j++){
+    $b[$i][$j]=0;
+  }
+}
+$a=str_split($a,1);
+$dice=array("B"=>6,"R"=>4,"D"=>5,"U"=>2,"L"=>3,"T"=>1);
+$b[$y][$x]=$dice["B"];
+foreach($a as $val){
+  if($val=="D"){
+    $y++;
+    $copy=$dice;
+    $copy["B"]=$dice["D"];
+    $copy["D"]=$dice["T"];
+    $copy["T"]=$dice["U"];
+    $copy["U"]=$dice["B"];
+    $b[$y][$x]=$copy["B"];
+    $dice=$copy;
+  }elseif($val=="U"){
+    $y--;
+    $copy=$dice;
+    $copy["B"]=$dice["U"];
+    $copy["D"]=$dice["B"];
+    $copy["T"]=$dice["D"];
+    $copy["U"]=$dice["T"];
+    $b[$y][$x]=$copy["B"];
+    $dice=$copy;
+  }elseif($val=="R"){
+    $x++;
+    $copy=$dice;
+    $copy["R"]=$dice["T"];
+    $copy["T"]=$dice["L"];
+    $copy["B"]=$dice["R"];
+    $copy["L"]=$dice["B"];
+    $b[$y][$x]=$copy["B"];
+    $dice=$copy;
+  }elseif($val=="L"){
+    $x--;
+    $copy=$dice;
+    $copy["T"]=$dice["R"];
+    $copy["L"]=$dice["T"];
+    $copy["R"]=$dice["B"];
+    $copy["B"]=$dice["L"];
+    $b[$y][$x]=$copy["B"];
+    $dice=$copy;
+  }
+}
+foreach($b as $val){
+  foreach($val as $value){
+    echo $value. " ";
+  }
+  echo "<br>";
+}
+?>
